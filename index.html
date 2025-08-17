@@ -1,294 +1,178 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Akshay Tyagrajan — Portfolio & Resume</title>
-  <meta name="description" content="The portfolio and résumé of Akshay Tyagrajan: projects, experience, skills, and contact information." />
-  <meta name="color-scheme" content="light dark" />
+  <title>Akshay Tyagarajan — Portfolio</title>
+  <meta name="description" content="High school portfolio and resume for Akshay Tyagarajan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #ffffff; --fg: #0f172a; --muted:#475569; --accent:#2563eb; --card:#f8fafc; --chip:#e2e8f0; --border:#e5e7eb; --shadow: 0 10px 20px rgba(2,6,23,.06), 0 2px 6px rgba(2,6,23,.08);
+      --bg:#0f172a;         
+      --card:#111827;       
+      --muted:#94a3b8;      
+      --text:#e5e7eb;       
+      --accent:#38bdf8;     
+      --accent-2:#a78bfa;   
+      --ring: rgba(56,189,248,.35);
+      --maxw: 980px;
+      --radius: 18px;
     }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b1020; --fg:#e5e7eb; --muted:#a1a1aa; --accent:#60a5fa; --card:#0f172a; --chip:#1f2937; --border:#1f2937; --shadow:none; }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin:0; padding:0; }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
     body{
-      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--fg); background: var(--bg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.6;
     }
-    a{ color: var(--accent); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
-    .container{ max-width: 1000px; margin: 0 auto; padding: 24px; }
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 20px}
     header{
-      position: sticky; top: 0; backdrop-filter: blur(8px);
-      background: color-mix(in srgb, var(--bg) 70%, transparent);
-      border-bottom: 1px solid var(--border);
-      z-index: 50;
+      position:sticky;top:0;backdrop-filter:saturate(160%) blur(10px);
+      background: rgba(8,12,22,.6); border-bottom:1px solid rgba(148,163,184,.15); z-index:20
     }
-    .nav{ display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav a{ padding: 10px 12px; border-radius: 10px; }
-    .nav a:hover{ background: var(--chip); text-decoration: none; }
-    .brand{ font-weight: 800; letter-spacing: .2px; font-size: 18px; }
-
-    .hero{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 40px 0; }
-    .hero h1{ font-size: clamp(28px, 5vw, 44px); line-height: 1.15; margin: 6px 0 12px; }
-    .hero p{ margin: 0; color: var(--muted); }
-    .tag{ display:inline-flex; align-items:center; gap:8px; background:var(--chip); padding:6px 10px; border-radius: 999px; font-size: 12px; color: var(--muted); border:1px solid var(--border); }
-    .cta{ display:flex; gap:12px; margin-top:18px; flex-wrap: wrap; }
-    .btn{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:var(--fg); color:var(--bg); box-shadow: var(--shadow); }
-    .btn.secondary{ background: var(--card); color: var(--fg); }
-    .btn:hover{ text-decoration:none; transform: translateY(-1px); }
-    .avatar{ width: 160px; height:160px; border-radius: 24px; object-fit: cover; border: 1px solid var(--border); background: var(--card); box-shadow: var(--shadow); }
-
-    section{ padding: 28px 0; }
-    h2{ font-size: 22px; margin: 0 0 12px; }
-
-    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
-    .col-6{ grid-column: span 6; }
-    .col-12{ grid-column: span 12; }
-
-    .card{ background: var(--card); border:1px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); }
-    .muted{ color: var(--muted); }
-    .list{ margin: 8px 0 0; padding-left: 18px; }
-    .chips{ display:flex; gap: 8px; flex-wrap: wrap; }
-
-    .item{ display:flex; gap:14px; align-items:flex-start; padding: 14px 0; border-bottom: 1px dashed var(--border); }
-    .item:last-child{ border-bottom: 0; }
-    .item .meta{ min-width: 120px; color: var(--muted); font-size: 14px; }
-    .item h3{ font-size: 16px; margin: 0; }
-
-    footer{ padding: 40px 0; border-top:1px solid var(--border); text-align:center; color: var(--muted); }
-
-    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
-
-    @media (max-width: 860px){
-      .hero{ grid-template-columns: 1fr; }
-      .col-6{ grid-column: span 12; }
-    }
-
-    /* Print-friendly styles */
-    @media print{
-      header, .cta, .tag, .avatar { display:none !important; }
-      .card { box-shadow: none; }
-      a{ color: black; text-decoration: none; }
-      body{ background: white; }
-    }
+    nav{display:flex;align-items:center;gap:18px;justify-content:space-between}
+    .nav-links{display:flex;gap:14px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(148,163,184,.25);
+      border-radius:999px;color:var(--text);background:rgba(17,24,39,.6)}
+    main{padding-top:24px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+    .card{background:var(--card);border:1px solid rgba(148,163,184,.18);border-radius:var(--radius);padding:22px}
+    h1{font-size:clamp(28px,3vw,40px);margin:0 0 6px 0}
+    h2{font-size:clamp(18px,2.2vw,24px);margin:0 0 14px 0}
+    h3{font-size:18px;margin:18px 0 6px}
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:#0b1220}
+    .grid{display:grid;gap:16px}
+    .two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:880px){.hero{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+    .badge{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,.25);margin-right:8px;color:#cbd5e1}
+    .list{margin:0;padding-left:18px}
+    .list li{margin:6px 0}
+    footer{opacity:.9;padding:40px 0}
+    .tag{display:inline-block;margin:4px 6px 0 0;padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid var(--ring)}
+    .split{display:flex;gap:18px;flex-wrap:wrap}
+    .pill{padding:10px 12px;border-radius:999px;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.35)}
+    .profile-pic{width:100%;border-radius:var(--radius);object-fit:cover;max-height:300px}
   </style>
-
-  <!-- Structured data for better SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Akshay Tyagrajan",
-    "jobTitle": "Software Engineer",
-    "url": "https://github.com/",
-    "sameAs": [
-      "https://github.com/", 
-      "https://www.linkedin.com/"
-    ]
-  }
-  </script>
 </head>
 <body>
-  <header aria-label="Site header">
-    <div class="container nav">
-      <a class="brand" href="#top">Akshay Tyagrajan</a>
-      <nav aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
+  <header>
+    <div class="wrap">
+      <nav>
+        <div class="nav-links">
+          <a class="chip" href="#about">About</a>
+          <a class="chip" href="#education">Education</a>
+          <a class="chip" href="#experience">Experience</a>
+          <a class="chip" href="#projects">Projects</a>
+          <a class="chip" href="#activities">Activities</a>
+          <a class="chip" href="#awards">Awards</a>
+          <a class="chip" href="#contact">Contact</a>
+        </div>
+        <a class="btn" href="resume.pdf" download>Download Resume (PDF)</a>
       </nav>
     </div>
   </header>
 
-  <main id="top" class="container" aria-label="Content">
-    <section class="hero" aria-label="Intro">
-      <div>
-        <span class="tag" aria-hidden="true">Open to Opportunities</span>
-        <h1>Akshay Tyagrajan</h1>
-        <p class="muted">Software Engineer focusing on reliable, user‑centered web applications. I enjoy building clean interfaces, scalable back ends, and helpful developer tools.</p>
-        <div class="cta">
-          <a class="btn" href="#" onclick="window.print()" aria-label="Download as PDF">Download PDF</a>
-          <a class="btn secondary" href="#projects">View Projects</a>
+  <main class="wrap">
+    <!-- HERO / INTRO -->
+    <section class="hero" id="about">
+      <div class="card">
+        <h1>Akshay Tyagarajan</h1>
+        <p class="muted">High School Student • Aspiring Business Intern</p>
+        <p>
+          I am a motivated high school student from Mundelein, Illinois with interests in business, leadership, and technology. I aim to gain real-world experience through internships and projects while continuing to build strong communication and teamwork skills.
+        </p>
+        <div class="split">
+          <span class="pill">Location: Mundelein, IL</span>
+          <span class="pill">Phone: +1 (224)-424-8454</span>
+          <span class="pill">Email: akshay.tyagarajan8@gmail.com</span>
         </div>
       </div>
-      <div style="justify-self:end">
-        <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Profile placeholder" class="avatar" />
+      <div class="card" style="text-align:center">
+        <img src="profile.jpg" alt="Photo of Akshay Tyagarajan" class="profile-pic">
+        <h2>Objective</h2>
+        <p>I want to obtain an internship in the field of business to gain practical and real-world experience with the knowledge acquired from my time in high school.</p>
       </div>
     </section>
 
-    <section id="about" class="grid" aria-label="About">
-      <div class="col-6 card">
-        <h2>About</h2>
-        <p>Detail‑oriented engineer with a bias for action and a calm approach to debugging. I care about accessibility, performance, and documentation that makes life easier for teammates and users.</p>
-        <p>Currently seeking roles where I can contribute across the stack and own projects end‑to‑end.</p>
-      </div>
-      <div class="col-6 card">
-        <h2>Quick Facts</h2>
-        <ul class="list">
-          <li><strong>Location:</strong> United States (open to remote)</li>
-          <li><strong>Email:</strong> <a href="mailto:akshay.tyagrajan@example.com">akshay.tyagrajan@example.com</a></li>
-          <li><strong>GitHub:</strong> <a href="https://github.com/your-username">github.com/your-username</a></li>
-          <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/your-handle">linkedin.com/in/your-handle</a></li>
-        </ul>
-      </div>
+    <!-- EDUCATION -->
+    <section class="card" id="education" style="margin-top:18px">
+      <h2>Education</h2>
+      <h3>Vernon Hills High School</h3>
+      <ul class="list">
+        <li>Completed courses: Marketing, Introduction to Business, Accounting Honors</li>
+        <li>Current courses: AP Macroeconomics, AP Government, Sports Entertainment Marketing, Business Leadership, DC Workplace Internship</li>
+      </ul>
     </section>
 
-    <section id="projects" class="card" aria-label="Projects">
-      <h2>Selected Projects</h2>
-      <div class="item">
-        <div class="meta">2025</div>
-        <div>
-          <h3>TaskFlow — Team Task Manager</h3>
-          <p class="muted">A collaborative task manager with real‑time updates, offline support, and keyboard‑first navigation.</p>
-          <ul class="list">
-            <li>Implemented optimistic UI and background sync with Service Workers, reducing perceived latency.</li>
-            <li>Designed a modular React component library shared across three internal tools.</li>
-          </ul>
-          <div class="chips" aria-label="Technologies">
-            <span class="tag">TypeScript</span>
-            <span class="tag">React</span>
-            <span class="tag">Node.js</span>
-            <span class="tag">PostgreSQL</span>
-          </div>
-          <p><a href="#">Live Demo</a> · <a href="#">Source Code</a></p>
-        </div>
-      </div>
-      <div class="item">
-        <div class="meta">2024</div>
-        <div>
-          <h3>InsightDash — Analytics Dashboard</h3>
-          <p class="muted">An accessible analytics dashboard featuring dynamic filters and exportable reports.</p>
-          <ul class="list">
-            <li>Cut report generation time by 70% by pushing heavy computations to background jobs.</li>
-            <li>Added keyboard and screen‑reader support to all controls, meeting WCAG AA criteria.</li>
-          </ul>
-          <div class="chips" aria-label="Technologies">
-            <span class="tag">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Redis</span>
-            <span class="tag">D3.js</span>
-          </div>
-          <p><a href="#">Case Study</a> · <a href="#">Source Code</a></p>
-        </div>
-      </div>
-      <div class="item">
-        <div class="meta">2023</div>
-        <div>
-          <h3>PicPick — Photo Organizer</h3>
-          <p class="muted">A desktop utility that uses perceptual hashes to detect duplicates and near‑duplicates in photo libraries.</p>
-          <ul class="list">
-            <li>Built a native‑feeling UI with Tauri; memory usage stays under 150MB for 10k+ images.</li>
-            <li>Wrote automated tests covering the deduplication core, improving reliability across platforms.</li>
-          </ul>
-          <div class="chips" aria-label="Technologies">
-            <span class="tag">Rust</span>
-            <span class="tag">Tauri</span>
-            <span class="tag">WASM</span>
-          </div>
-          <p><a href="#">Releases</a> · <a href="#">Source Code</a></p>
-        </div>
-      </div>
+    <!-- SKILLS -->
+    <section class="card" id="skills" style="margin-top:18px">
+      <h2>Skills</h2>
+      <p>
+        <span class="tag">Java</span>
+        <span class="tag">Wix</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Communication</span>
+        <span class="tag">Interpersonal Skills</span>
+      </p>
     </section>
 
-    <section id="experience" class="grid" aria-label="Experience">
-      <div class="col-12 card">
-        <h2>Experience</h2>
-        <div class="item">
-          <div class="meta">Jun 2024 — Aug 2024</div>
-          <div>
-            <h3>Software Engineering Intern · Example Company</h3>
-            <p class="muted">Contributed to a customer‑facing web platform serving ~50k monthly active users.</p>
-            <ul class="list">
-              <li>Shipped a feature flag system that enabled safe rollouts and reduced incident rate by 30%.</li>
-              <li>Improved page performance (LCP) from 3.1s → 1.8s by optimizing queries and assets.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="item">
-          <div class="meta">2022 — 2024</div>
-          <div>
-            <h3>Teaching Assistant · University Program</h3>
-            <p class="muted">Led weekly labs and mentored students on data structures and algorithms.</p>
-            <ul class="list">
-              <li>Created starter templates and rubrics that reduced grading time by 40%.</li>
-              <li>Hosted review sessions attended by 100+ students; course pass rate increased by 8%.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <!-- PROJECTS -->
+    <section class="card" id="projects" style="margin-top:18px">
+      <h2>Projects</h2>
+      <ul class="list">
+        <li>Helping program an app with my dad</li>
+        <li>Volunteering as a coordinator at Reach Rescue, Inc.</li>
+        <li>Created an E-business project for FBLA freshman year</li>
+      </ul>
     </section>
 
-    <section id="skills" class="grid" aria-label="Skills">
-      <div class="col-6 card">
-        <h2>Technical Skills</h2>
-        <div class="chips">
-          <span class="tag">JavaScript/TypeScript</span>
-          <span class="tag">React</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">Python</span>
-          <span class="tag">SQL</span>
-          <span class="tag">Git & GitHub</span>
-          <span class="tag">REST & GraphQL</span>
-          <span class="tag">Docker</span>
-          <span class="tag">AWS Basics</span>
-          <span class="tag">CI/CD</span>
-          <span class="tag">Testing</span>
-          <span class="tag">Accessibility</span>
-        </div>
-      </div>
-      <div class="col-6 card">
-        <h2>Strengths</h2>
-        <ul class="list">
-          <li>Clear communication and thoughtful documentation.</li>
-          <li>Reliable ownership from planning to delivery.</li>
-          <li>Practical problem‑solving with attention to detail.</li>
-        </ul>
-      </div>
+    <!-- ACTIVITIES -->
+    <section class="card" id="activities" style="margin-top:18px">
+      <h2>Extracurricular Activities</h2>
+      <ul class="list">
+        <li>Future Business Leaders of America (FBLA) — Member (Freshman year)</li>
+      </ul>
     </section>
 
-    <section id="education" class="grid" aria-label="Education & Certifications">
-      <div class="col-6 card">
-        <h2>Education</h2>
-        <div class="item">
-          <div class="meta">Class of 2025</div>
-          <div>
-            <h3>B.S. in Computer Science · Your University</h3>
-            <p class="muted">Relevant coursework: Data Structures, Algorithms, Databases, Operating Systems, Networks, HCI.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 card">
-        <h2>Certifications & Awards</h2>
-        <ul class="list">
-          <li>AWS Certified Cloud Practitioner (in progress)</li>
-          <li>Hackathon Winner — Best Tooling (2024)</li>
-          <li>Dean’s List (multiple semesters)</li>
-        </ul>
-      </div>
+    <!-- EXPERIENCE -->
+    <section class="card" id="experience" style="margin-top:18px">
+      <h2>Experience</h2>
+      <ul class="list">
+        <li>Volunteering at Habitats for Humanity — Coordinated drywall construction for a house in Harvard, IL</li>
+        <li>Reach Rescue, Inc. — Assisted with setting up adoption center and marketing dogs to potential adopters</li>
+      </ul>
     </section>
 
-    <section id="contact" class="card" aria-label="Contact">
+    <!-- AWARDS -->
+    <section class="card" id="awards" style="margin-top:18px">
+      <h2>Awards</h2>
+      <ul class="list">
+        <li>5th place in Regionals — FBLA</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card" id="contact" style="margin-top:18px">
       <h2>Contact</h2>
-      <p>If you would like to get in touch, email <a href="mailto:akshay.tyagrajan@example.com">akshay.tyagrajan@example.com</a> or connect on <a href="https://www.linkedin.com/in/your-handle">LinkedIn</a>.</p>
+      <p>Email: <a href="mailto:akshay.tyagarajan8@gmail.com">akshay.tyagarajan8@gmail.com</a></p>
+      <p>Phone: +1 (224)-424-8454</p>
+      <p>GitHub: <a href="https://github.com/akshaytyagarajan">github.com/akshaytyagarajan</a></p>
+      <p>LinkedIn: <a href="#">linkedin.com/in/akshaytyagarajan</a></p>
     </section>
-  </main>
 
-  <footer>
-    <div class="container">© <span id="year"></span> Akshay Tyagrajan. Built with plain HTML & CSS. Print this page to save a PDF résumé.</div>
-  </footer>
+    <footer class="wrap">
+      <p class="muted">© <span id="year"></span> Akshay Tyagarajan. Built with HTML/CSS and hosted on GitHub Pages.</p>
+    </footer>
+  </main>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
-
-  
