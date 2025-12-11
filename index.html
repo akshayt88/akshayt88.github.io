@@ -1,181 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Akshay Tyagarajan — Portfolio</title>
-  <meta name="description" content="High school portfolio and resume for Akshay Tyagarajan." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0f172a;         
-      --card:#111827;       
-      --muted:#94a3b8;      
-      --text:#e5e7eb;       
-      --accent:#38bdf8;     
-      --accent-2:#a78bfa;   
-      --ring: rgba(56,189,248,.35);
-      --maxw: 980px;
-      --radius: 18px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
-    body{
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #0b1220 0%, #0f172a 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px 20px}
-    header{
-      position:sticky;top:0;backdrop-filter:saturate(160%) blur(10px);
-      background: rgba(8,12,22,.6); border-bottom:1px solid rgba(148,163,184,.15); z-index:20
-    }
-    nav{display:flex;align-items:center;gap:18px;justify-content:space-between}
-    .nav-links{display:flex;gap:14px;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(148,163,184,.25);
-      border-radius:999px;color:var(--text);background:rgba(17,24,39,.6)}
-    main{padding-top:24px}
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
-    .card{background:var(--card);border:1px solid rgba(148,163,184,.18);border-radius:var(--radius);padding:22px}
-    h1{font-size:clamp(28px,3vw,40px);margin:0 0 6px 0}
-    h2{font-size:clamp(18px,2.2vw,24px);margin:0 0 14px 0}
-    h3{font-size:18px;margin:18px 0 6px}
-    .muted{color:var(--muted)}
-    .btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:#0b1220}
-    .grid{display:grid;gap:16px}
-    .two{grid-template-columns:repeat(2,minmax(0,1fr))}
-    @media (max-width:880px){.hero{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
-    .badge{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,.25);margin-right:8px;color:#cbd5e1}
-    .list{margin:0;padding-left:18px}
-    .list li{margin:6px 0}
-    footer{opacity:.9;padding:40px 0}
-    .tag{display:inline-block;margin:4px 6px 0 0;padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid var(--ring)}
-    .split{display:flex;gap:18px;flex-wrap:wrap}
-    .pill{padding:10px 12px;border-radius:999px;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.35)}
-    .profile-pic{width:100%;border-radius:var(--radius);object-fit:cover;max-height:300px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Smart Home MVP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #34495e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        nav {
+            background: #2c3e50;
+            text-align: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+            border-radius: 4px;
+        }
+        nav a:hover {
+            background-color: #3498db;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 30px 0;
+        }
+        .project-section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .hardware-list, .functionality-list {
+            list-style-type: disc;
+            padding-left: 40px;
+        }
+        .visual-container {
+            text-align: center;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .visual-item {
+            width: 45%; 
+            margin-bottom: 20px;
+        }
+        .visual-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .visual-item p {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+        }
+        h3 {
+            color: #34495e;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        .code-block {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .cta-buttons a {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .cta-buttons a:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #34495e;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <nav>
-        <div class="nav-links">
-          <a class="chip" href="#about">About</a>
-          <a class="chip" href="#education">Education</a>
-          <a class="chip" href="#experience">Experience</a>
-          <a class="chip" href="#projects">Projects</a>
-          <a class="chip" href="#activities">Activities</a>
-          <a class="chip" href="#awards">Awards</a>
-          <a class="chip" href="#contact">Contact</a>
-        </div>
-      </nav>
+
+    <header>
+        <h1>Smart Home Air Quality Monitor MVP</h1>
+        <p>Final Project Showcase and Functionality</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="project.html">Project Details</a>
+        <a href="development.html">Development Journey</a>
+        <a href="about.html">About Me</a>
+    </nav>
+
+    <div class="container">
+        
+        <section class="project-section">
+            <h2>The Solution: Environmental Hazard Alert System</h2>
+            <p>
+                My final project is a compact, dedicated safety device built on the **Micro:bit platform** designed to monitor two critical, often unseen, environmental hazards: combustible gases and airborne dust particles. This system leverages the Micro:bit shield for stable connections and Python for logic processing.
+            </p>
+
+            <h3>Core Hardware Components</h3>
+            <ul class="hardware-list">
+                <li>**Micro:bit & Micro:bit Shield (Elecfreaks):** The central controller and stable connection board.</li>
+                <li>**MQ-2 Gas Sensor:** Detects hazardous gases like Butane, LPG, and Methane.</li>
+                <li>**Dust Particle Sensor:** Monitors the concentration and size of airborne dust.</li>
+                <li>**Passive Buzzer:** Provides immediate, audible alerts for unsafe levels.</li>
+                <li>**OLED Display (Optional/Initial Test):** Used for providing digital readings during testing and final display.</li>
+            </ul>
+
+            <h3>Functionality and Logic</h3>
+            <p>The device is programmed in **Python (MicroPython)**. It continuously reads analog values from the sensors and compares them against pre-set safety thresholds.</p>
+            <ul class="functionality-list">
+                <li>**Gas Threshold:** Alert triggers when the MQ-2 sensor reading reaches or exceeds **400 parts per million (PPM)**.</li>
+                <li>**Dust Threshold:** Alert triggers when the dust sensor detects particle concentrations indicating an **unsafe level** (e.g., in a heavy woodworking environment).</li>
+                <li>**Alarm System:** The passive buzzer is activated immediately when *either* the gas or dust threshold is met, providing a crucial safety warning.</li>
+            </ul>
+
+            <div class="code-block">
+                <p>// Conceptual Python Logic Snippet (Illustrating Analog Reading and Comparison)</p>
+                <pre>
+from microbit import *
+import music
+
+GAS_THRESHOLD = 400 
+
+def read_gas():
+    # Assuming MQ-2 is connected to analog pin P0
+    return pin0.read_analog() 
+
+def check_hazards():
+    gas_level = read_gas()
+    # Assume dust_level check is also included here
+    
+    if gas_level >= GAS_THRESHOLD: 
+        # Trigger alarm if gas is too high
+        music.play(music.BA_DING, wait=False)
+        display.show(Image.SAD)
+    else:
+        # Keep device quiet if safe
+        display.show(Image.HEART)
+        music.stop()
+
+while True:
+    check_hazards()
+    sleep(500)
+                </pre>
+            </div>
+            
+            <h3>Visuals and Wiring</h3>
+            <div class="visual-container">
+                <div class="visual-item">
+                    <img src="Screenshot 2025-12-10 at 11.25.17 PM.jpg" alt="Final Gas Sensor and Micro:bit Setup">
+                    <p>Image 1: Final setup showing the MQ-2 Gas Sensor connected to the Micro:bit shield and OLED display, giving real-time readings.</p>
+                </div>
+                <div class="visual-item">
+                    <img src="Screenshot 2025-12-10 at 11.24.59 PM.png" alt="Dust Sensor Wiring Diagram">
+                    <p>Image 2: Wiring diagram for a dust sensor (or similar component) to the Micro:bit Sensor:bit shield, confirming the use of analog pins.</p>
+                </div>
+            </div>
+
+            <h3>Real-World Impact</h3>
+            <p>The system is designed to provide safety in two key scenarios:</p>
+            <ul>
+                <li>**Gas Leaks:** Detecting rising methane/LPG levels from an unattended stove, alerting the user before dangerous concentrations are reached.</li>
+                <li>**Air Quality:** Providing a warning in environments like home workshops where high levels of fine dust particles can pose serious respiratory risks.</li>
+            </ul>
+
+
+            <p style="text-align: center; margin-top: 30px;" class="cta-buttons">
+                <a href="development.html">Continue to the Development Journey & Pivots</a>
+            </p>
+        </section>
+
     </div>
-  </header>
 
-  <main class="wrap">
-    <!-- HERO / INTRO -->
-    <section class="hero" id="about">
-      <div class="card">
-        <h1>Akshay Tyagarajan</h1>
-        <p class="muted">High School Student • Aspiring Business Intern</p>
-        <p>
-          I am a motivated high school student from Mundelein, Illinois with interests in business, leadership, and technology. I aim to gain real-world experience through internships and projects while continuing to build strong communication and teamwork skills.
-        </p>
-        <div class="split">
-          <span class="pill">Location: Mundelein, IL</span>
-          <span class="pill">Phone: +1 (224)-424-8454</span>
-          <span class="pill">Email: akshay.tyagarajan8@gmail.com</span>
-        </div>
-      </div>
-      <div class="card" style="text-align:center">
-        <h2>Objective</h2>
-        <p>I want to obtain an internship in the field of business to gain practical and real-world experience with the knowledge acquired from my time in high school.</p>
-      </div>
-    </section>
-
-    <!-- EDUCATION -->
-    <section class="card" id="education" style="margin-top:18px">
-      <h2>Education</h2>
-      <h3>Vernon Hills High School</h3>
-      <ul class="list">
-        <li>Completed courses: Marketing, Introduction to Business, Accounting Honors</li>
-        <li>Current courses: AP Macroeconomics, AP Government, Sports Entertainment Marketing, Business Leadership, DC Workplace Internship</li>
-      </ul>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="card" id="skills" style="margin-top:18px">
-      <h2>Skills</h2>
-      <p>
-        <span class="tag">Java</span>
-        <span class="tag">Wix</span>
-        <span class="tag">GitHub</span>
-        <span class="tag">Communication</span>
-        <span class="tag">Interpersonal Skills</span>
-      </p>
-    </section>
-
-    <!-- PROJECTS -->
-    <section class="card" id="projects" style="margin-top:18px">
-      <h2>Projects</h2>
-      <ul class="list">
-        <li>Helping program an app with my dad</li>
-        <li>Volunteering as a coordinator at Reach Rescue, Inc.</li>
-        <li>Created an E-business project for FBLA freshman year</li>
-      </ul>
-    </section>
-
-    <!-- ACTIVITIES -->
-    <section class="card" id="activities" style="margin-top:18px">
-      <h2>Extracurricular Activities</h2>
-      <ul class="list">
-        <li>Future Business Leaders of America (FBLA) — Member (Freshman year)</li>
-      </ul>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section class="card" id="experience" style="margin-top:18px">
-      <h2>Experience</h2>
-      <ul class="list">
-        <li>Volunteering at Habitats for Humanity — Coordinated drywall construction for a house in Harvard, IL</li>
-        <li>Reach Rescue, Inc. — Assisted with setting up adoption center and marketing dogs to potential adopters</li>
-      </ul>
-    </section>
-
-    <!-- AWARDS -->
-    <section class="card" id="awards" style="margin-top:18px">
-      <h2>Awards</h2>
-      <ul class="list">
-        <li>5th place in Regionals — FBLA</li>
-      </ul>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="card" id="contact" style="margin-top:18px">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:akshay.tyagarajan8@gmail.com">akshay.tyagarajan8@gmail.com</a></p>
-      <p>Phone: +1 (224)-424-8454</p>
-      <li><a href="https://docs.google.com/document/d/1SigmXiE9wARXBFwPhpIPSsl8T6VnAWT5BEKyPKdUicU/edit?usp=sharing" target="_blank">Resume</a></li>
-     <p>
-  LinkedIn:
-  <a href="https://www.linkedin.com/in/akshay-tyagarajan-16440237a/?trk=opento_sprofile_goalscard" target="_blank" rel="noopener">
-    linkedin.com/in/akshay-tyagarajan-16440237a
-  </a>
-</p>
-    </section>
-
-    <footer class="wrap">
-      <p class="muted">© <span id="year"></span> Akshay Tyagarajan. Built with HTML/CSS and hosted on GitHub Pages.</p>
+    <footer>
+        &copy; 2025 Akshay Tyagarajan Portfolio
     </footer>
-  </main>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
