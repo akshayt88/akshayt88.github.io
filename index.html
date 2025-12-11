@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details | Smart Home MVP</title>
+    <title>Akshay Tyagarajan | Computer Science Capstone Portfolio</title>
+    
     <style>
+        /* BASE STYLES */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,51 +15,73 @@
             color: #333;
             line-height: 1.6;
         }
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        /* HEADER & NAVIGATION */
         header {
             background: #34495e;
             color: white;
-            padding: 20px 0;
+            padding: 40px 0;
             text-align: center;
         }
         header h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 2.8em;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
         }
         nav {
             background: #2c3e50;
             text-align: center;
             padding: 10px 0;
+            position: sticky; /* Sticky navigation bar */
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         nav a {
             color: white;
             text-decoration: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             margin: 0 5px;
             display: inline-block;
             transition: background-color 0.3s;
             border-radius: 4px;
+            font-weight: bold;
         }
         nav a:hover {
             background-color: #3498db;
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 30px 0;
-        }
-        .project-section {
+
+        /* SECTION STYLES */
+        section {
             background: white;
-            padding: 30px;
-            margin-bottom: 20px;
+            padding: 40px;
+            margin-top: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
         }
-        .hardware-list, .functionality-list {
-            list-style-type: disc;
-            padding-left: 40px;
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            text-align: center;
         }
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+        }
+        
+        /* PROJECT SPECIFIC STYLES */
         .visual-container {
             text-align: center;
             margin: 30px 0;
@@ -80,12 +104,6 @@
             color: #555;
             font-size: 0.9em;
         }
-        h3 {
-            color: #34495e;
-            border-bottom: 2px solid #bdc3c7;
-            padding-bottom: 5px;
-            margin-top: 25px;
-        }
         .code-block {
             background-color: #2c3e50;
             color: white;
@@ -94,21 +112,26 @@
             overflow-x: auto;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 0.9em;
+            margin: 20px 0;
         }
-        .cta-buttons a {
-            background-color: #3498db;
+
+        /* ABOUT ME STYLES */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+        }
+        .skills-list li {
+            background: #3498db;
             color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            margin: 10px;
-            border-radius: 5px;
-            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
             font-weight: bold;
-            transition: background-color 0.3s;
         }
-        .cta-buttons a:hover {
-            background-color: #2980b9;
-        }
+
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 20px 0;
@@ -120,103 +143,149 @@
 </head>
 <body>
 
-    <header>
-        <h1>Smart Home Air Quality Monitor MVP</h1>
-        <p>Final Project Showcase and Functionality</p>
-    </header>
-
     <nav>
-        <a href="index.html">Home</a>
-        <a href="project.html">Project Details</a>
-        <a href="development.html">Development Journey</a>
-        <a href="about.html">About Me</a>
+        <a href="#home">Home</a>
+        <a href="#project">Project Details</a>
+        <a href="#development">Development Journey</a>
+        <a href="#about">About Me</a>
     </nav>
+
+    <header id="home">
+        <h1>Akshay Tyagarajan's Capstone Portfolio</h1>
+        <p>12th Grade Student in Computer Science Advanced Topics at Vernon Hills High School</p>
+    </header>
 
     <div class="container">
         
-        <section class="project-section">
-            <h2>The Solution: Environmental Hazard Alert System</h2>
-            <p>
-                My final project is a compact, dedicated safety device built on the **Micro:bit platform** designed to monitor two critical, often unseen, environmental hazards: combustible gases and airborne dust particles. This system leverages the Micro:bit shield for stable connections and Python for logic processing.
+        <section>
+            <h2>My Project: Smart Home Air Quality Monitor</h2>
+            <p style="font-size: 1.1em; text-align: center;">
+                This project is a hardware-software integration focusing on immediate safety alerts. It is a **Smart Home Device** built on a Micro:bit shield, utilizing a **Gas Sensor (MQ-2)** and a **Dust Sensor** to detect environmental hazards and alert the user via a **Passive Buzzer**.
             </p>
+        </section>
 
-            <h3>Core Hardware Components</h3>
-            <ul class="hardware-list">
-                <li>**Micro:bit & Micro:bit Shield (Elecfreaks):** The central controller and stable connection board.</li>
-                <li>**MQ-2 Gas Sensor:** Detects hazardous gases like Butane, LPG, and Methane.</li>
-                <li>**Dust Particle Sensor:** Monitors the concentration and size of airborne dust.</li>
-                <li>**Passive Buzzer:** Provides immediate, audible alerts for unsafe levels.</li>
-                <li>**OLED Display (Optional/Initial Test):** Used for providing digital readings during testing and final display.</li>
+
+        <section id="project">
+            <h2><span role="img" aria-label="lightbulb">💡</span> Project Details: Final MVP</h2>
+
+            <h3>Core Functionality</h3>
+            <p>The code is written in **Python (MicroPython)**. The system monitors two critical analog inputs and triggers a digital output (the buzzer) based on predefined safety thresholds.</p>
+            <ul>
+                <li>
+                    **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading reaches or exceeds **400 parts per million (PPM)**.
+                </li>
+                <li>
+                    **Dust Particle Sensor:** Monitors the concentration and size of airborne dust. The buzzer alerts the user when particles indicate **unsafe air quality** (e.g., in a heavily used workshop).
+                </li>
+                <li>
+                    **Passive Buzzer:** Provides an immediate audible warning for either hazard detection.
+                </li>
             </ul>
 
-            <h3>Functionality and Logic</h3>
-            <p>The device is programmed in **Python (MicroPython)**. It continuously reads analog values from the sensors and compares them against pre-set safety thresholds.</p>
-            <ul class="functionality-list">
-                <li>**Gas Threshold:** Alert triggers when the MQ-2 sensor reading reaches or exceeds **400 parts per million (PPM)**.</li>
-                <li>**Dust Threshold:** Alert triggers when the dust sensor detects particle concentrations indicating an **unsafe level** (e.g., in a heavy woodworking environment).</li>
-                <li>**Alarm System:** The passive buzzer is activated immediately when *either* the gas or dust threshold is met, providing a crucial safety warning.</li>
-            </ul>
+            <h3>Visuals and Wiring</h3>
+            <div class="visual-container">
+                <div class="visual-item">
+                    <img src="Screenshot 2025-12-10 at 11.25.17 PM.jpg" alt="Final Gas Sensor and Micro:bit Setup">
+                    <p>Image 1: The final, functional setup showing the MQ-2 Gas Sensor connected to the Micro:bit shield and OLED display, confirming real-time data monitoring.</p>
+                </div>
+                <div class="visual-item">
+                    <img src="Screenshot 2025-12-10 at 11.24.59 PM.png" alt="Dust Sensor Wiring Diagram">
+                    <p>Image 2: Wiring diagram for a sensor connected to the Micro:bit Sensor:bit shield, illustrating the successful use of analog pins for multiple components.</p>
+                </div>
+            </div>
 
+            <h3>Code Insight</h3>
             <div class="code-block">
-                <p>// Conceptual Python Logic Snippet (Illustrating Analog Reading and Comparison)</p>
+                <p>// Conceptual Python Logic Snippet (Analog Read & Comparison)</p>
                 <pre>
 from microbit import *
 import music
 
 GAS_THRESHOLD = 400 
 
-def read_gas():
-    # Assuming MQ-2 is connected to analog pin P0
-    return pin0.read_analog() 
-
-def check_hazards():
-    gas_level = read_gas()
-    # Assume dust_level check is also included here
+def read_sensors_and_alert():
+    gas_level = pin0.read_analog() # MQ-2 on P0
+    dust_level = pin1.read_analog() # Dust Sensor on P1 (Conceptual)
     
-    if gas_level >= GAS_THRESHOLD: 
-        # Trigger alarm if gas is too high
+    # Check for hazards
+    if gas_level >= GAS_THRESHOLD or dust_level > DUST_THRESHOLD:
         music.play(music.BA_DING, wait=False)
-        display.show(Image.SAD)
     else:
-        # Keep device quiet if safe
-        display.show(Image.HEART)
         music.stop()
 
 while True:
-    check_hazards()
+    read_sensors_and_alert()
     sleep(500)
                 </pre>
             </div>
+        </section>
+        
+        <section id="development">
+            <h2><span role="img" aria-label="gear">⚙️</span> The Development Journey: Pivots and Growth</h2>
+            <p>My project development was a series of crucial learning moments that led me from complex theoretical integration to a focused, functional MVP. Every challenge taught me a key lesson about hardware communication, power management, and scope control.</p>
+
+            <h3>Phase 1: The iOS App (Initial Failure)</h3>
+            <p>I initially attempted to create a mobile app using Xcode that would wirelessly connect to the Micro:bit gas sensing device. While I completed the app's front-end, I encountered significant challenges connecting it to the hardware, repeatedly receiving a **"nonexit zero code error."**</p>
+            <p style="font-style: italic;">**Key Learning:** Complex wireless communication (Bluetooth) between mobile devices and microcontrollers required specialized knowledge I needed more time to acquire. It taught me the value of simplifying the project scope.</p>
+
+            <h3>Phase 2: The Keystudio Smart Home Model (Over-Scoping)</h3>
+            <p>I pivoted to an all-encompassing Keystudio Smart Home model that included an OLED display, MQ-2 sensor, a fan, LEDs, revolving doors, a water sensor, and Bluetooth.</p>
             
-            <h3>Visuals and Wiring</h3>
             <div class="visual-container">
-                <div class="visual-item">
-                    <img src="Screenshot 2025-12-10 at 11.25.17 PM.jpg" alt="Final Gas Sensor and Micro:bit Setup">
-                    <p>Image 1: Final setup showing the MQ-2 Gas Sensor connected to the Micro:bit shield and OLED display, giving real-time readings.</p>
-                </div>
-                <div class="visual-item">
-                    <img src="Screenshot 2025-12-10 at 11.24.59 PM.png" alt="Dust Sensor Wiring Diagram">
-                    <p>Image 2: Wiring diagram for a dust sensor (or similar component) to the Micro:bit Sensor:bit shield, confirming the use of analog pins.</p>
+                <div class="visual-item" style="width: 80%;">
+                    <img src="Screenshot 2025-12-10 at 11.44.52 PM.jpg" alt="Keystudio Smart Home Kit">
+                    <p>Image 3: The Keystudio Smart Home Model—a pivot that proved too complex due to integration and power issues.</p>
                 </div>
             </div>
 
-            <h3>Real-World Impact</h3>
-            <p>The system is designed to provide safety in two key scenarios:</p>
-            <ul>
-                <li>**Gas Leaks:** Detecting rising methane/LPG levels from an unattended stove, alerting the user before dangerous concentrations are reached.</li>
-                <li>**Air Quality:** Providing a warning in environments like home workshops where high levels of fine dust particles can pose serious respiratory risks.</li>
+            <p>This approach led to **huge complications** due to battery lifespan issues and connection struggles (like the OLED display failing to turn on). I realized the project had too many features.</p>
+            <p style="font-style: italic;">**Key Learning:** Feature creep and power management are critical challenges in hardware projects. This experience led me to focus strictly on the *core function*: gas and dust detection.</p>
+
+            <h3>Phase 3: The Elecfreaks Circuit (Success)</h3>
+            <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned **Python** to program the Micro:bit and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible.</p>
+            <p>I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
+            <p style="font-weight: bold;">**Outcome:** A functional, reliable safety device, proving that disciplined iteration leads to project completion.</p>
+
+        </section>
+
+        <section id="about">
+            <h2><span role="img" aria-label="person">👤</span> About Me</h2>
+            
+            <p>I am a motivated high school student from Mundelein, Illinois with strong interests in business, leadership, and technology. I aim to gain real-world experience through internships and projects while continuing to build strong communication and teamwork skills.</p>
+            
+            <h3>Future Goals</h3>
+            <p>I want to obtain an internship in the field of business to gain practical and real-world experience, combining the knowledge acquired from my time in high school with professional settings.</p>
+
+            <h3>Skills & Experience</h3>
+            
+            <p style="font-weight: bold;">Technical Skills:</p>
+            <ul class="skills-list">
+                <li>Java</li>
+                <li>Python (Acquired during Capstone)</li>
+                <li>Wix</li>
+                <li>GitHub</li>
             </ul>
 
+            <p style="font-weight: bold; margin-top: 20px;">Soft Skills:</p>
+            <ul class="skills-list">
+                <li>Communication</li>
+                <li>Interpersonal Skills</li>
+                <li>Teamwork</li>
+                <li>Problem Solving</li>
+            </ul>
+            
+            <h4 style="margin-top: 20px;">Volunteering Experience:</h4>
+            <ul>
+                <li>**Volunteering at Habitats for Humanity:** Coordinated drywall construction for a house in Harvard, IL.</li>
+                <li>**Reach Rescue, Inc.:** Assisted with setting up the adoption center and marketing dogs to potential adopters.</li>
+            </ul>
 
-            <p style="text-align: center; margin-top: 30px;" class="cta-buttons">
-                <a href="development.html">Continue to the Development Journey & Pivots</a>
-            </p>
         </section>
 
     </div>
 
     <footer>
-        &copy; 2025 Akshay Tyagarajan Portfolio
+        &copy; 2025 Akshay Tyagarajan Portfolio | Computer Science Advanced Topics
     </footer>
 
 </body>
