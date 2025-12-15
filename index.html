@@ -203,25 +203,43 @@
                 <p>// The Final MakeCode Block Logic Transcribed to Code</p>
                 <pre>
 // --- On Start ---
+let GAS_ALARM_THRESHOLD = 600
+let DUST_ALARM_THRESHOLD = 150 
 OLED.init(128, 64)
-// --- Forever ---
-def on_forever():
-    OLED.clear()
-    OLED.write_string("Dust(ug/m3):")
-    OLED.write_num_new_line(Environment.read_dust(DigitalPin.P13, AnalogPin.P1))
-    OLED.new_line()
-    OLED.write_string("Gas Level ppm:")
-    OLED.write_num_new_line(pins.analog_read_pin(AnalogReadWritePin.P2))
-    basic.pause(1000)
-    if pins.analog_read_pin(AnalogPin.P2) >= 400 or Environment.read_dust(DigitalPin.P13, AnalogPin.P1) > 200:
-        music.ring_tone(260)
-        led.enable(True)
-        led.set_brightness(255)
-    else:
-        music.stop_all_sounds()
-        led.enable(False)
-basic.forever(on_forever)
+OLED.clear()
 
+// --- Forever Loop ---
+basic.forever(function () {
+    // 1. Read Sensors
+    let Gas_Reading = pins.analogReadPin(AnalogPin.P2) // MQ-2 on P2
+    let Dust_Reading = Environment.readDust(DigitalPin.P13, AnalogPin.P1) // Dust Sensor on P13/P1
+    
+    // 2. Check Alarm Condition: TRUE if Gas OR Dust is too high
+    let Alarm_On = (Gas_Reading > GAS_ALARM_THRESHOLD) || (Dust_Reading > DUST_ALARM_THRESHOLD)
+    
+    // 3. Display Data on OLED
+    OLED.clear()
+    OLED.showString("Dust(ug/m3):", 0, 0)
+    OLED.showNumber(Dust_Reading, 90, 0)
+    OLED.showString("Gas Reading:", 0, 20)
+    OLED.showNumber(Gas_Reading, 90, 20)
+
+    if (Alarm_On) {
+        OLED.showString("--- ALARM ---", 0, 45)
+    } else {
+        OLED.showString("--- SAFE ---", 0, 45)
+    }
+    
+    // 4. Buzzer & LED Alarm Action
+    if (Alarm_On) {
+        music.playTone(800, music.beat(BeatFraction.Quarter)) 
+        basic.showLeds(`# . . . # . # . # . . . # . . # . # . # . . . #`)
+    } else {
+        music.rest(music.beat(BeatFraction.Sixteenth))
+        basic.clearScreen()
+    }
+    basic.pause(2000)
+})
                 </pre>
             </div>
         </section>
@@ -250,6 +268,13 @@ basic.forever(on_forever)
             <h3>Phase 3: The Elecfreaks Circuit (Success)</h3>
             <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned to program the Micro:bit effectively and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible. I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
             <p style="font-weight: bold;">**Outcome:** A functional, reliable safety device, proving that disciplined iteration leads to project completion.</p>
+            
+            <div class="visual-container">
+                <div class="visual-item" style="width: 80%;">
+                    <img src="IMG_1536.jpeg" alt="Final functional setup of the Elecfreaks circuit with Micro:bit, MQ-2, and OLED display.">
+                    <p>Image 4: The final functional Elecfreaks circuit proving the success of Phase 3, showing the connected Micro:bit and sensors.</p>
+                </div>
+            </div>
 
         </section>
 
