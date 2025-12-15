@@ -169,13 +169,13 @@
             <h2><span role="img" aria-label="lightbulb">💡</span> Project Details: Final MVP</h2>
 
             <h3>Core Functionality</h3>
-            <p>The code is written in **MakeCode Blocks** (MicroPython equivalent) to simplify integration with the **Elecfreaks IoT:bit** shield. The system monitors two critical analog inputs and triggers a dual digital output (buzzer and LED) based on predefined safety thresholds.</p>
+            <p>The code is written in the **MakeCode Editor** (MicroPython mode) to simplify integration with the **Elecfreaks IoT:bit** shield. The system monitors two critical analog inputs and triggers a dual digital output (buzzer and LED) based on predefined safety thresholds.</p>
             <ul>
                 <li>
-                    **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading exceeds a set threshold (e.g., **600** on the Micro:bit's 0-1023 analog scale).
+                    **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading exceeds a set threshold (e.g., **400 PPM** or the corresponding 0-1023 analog value).
                 </li>
                 <li>
-                    **Dust Particle Sensor:** Monitors the concentration of airborne dust. The alarm is triggered when the reading exceeds a set safety threshold (e.g., **150 ug/m³**).
+                    **Dust Particle Sensor:** Monitors the concentration of airborne dust. The alarm is triggered when the reading exceeds a set safety threshold (e.g., **200 ug/m³**).
                 </li>
                 <li>
                     **Passive Buzzer & Onboard LED:** Provides an immediate, simultaneous audible and visual warning for *either* hazard detection.
@@ -185,61 +185,53 @@
             <h3>Visuals and Demo</h3>
             <div class="visual-container">
                 <div class="visual-item" style="width: 90%;">
-                    <video controls src="IMG_1533.mp4" alt="Video demonstration of gas detection system"></video>
+                    <video controls style="max-width: 100%; height: auto; border-radius: 5px; border: 1px solid #ccc;">
+                        <source src="IMG_1533 (5).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                     <p>Video 1: Demonstration of the MQ-2 Gas Sensor triggering the Passive Buzzer and Onboard LED blink when exposed to Butane from a lighter.</p>
                 </div>
                 <div class="visual-item">
-                    <img src="Screenshot 2025-12-08 at 7.45.14 PM.png" alt="MakeCode analog read pin block">
+                    <img src="Screenshot 2025-12-08 at 7.45.14 PM.png" alt="MakeCode analog read pin block">
                     <p>Image 1: The 'analog read pin' block is essential for interpreting the varying voltage output from the MQ-2 gas sensor.</p>
                 </div>
                 <div class="visual-item">
-                    <img src="Screenshot 2025-12-09 at 9.00.20 PM.png" alt="MakeCode dust sensor block logic">
+                    <img src="Screenshot 2025-12-09 at 9.00.20 PM.png" alt="MakeCode dust sensor block logic">
                     <p>Image 2: The logic for reading the dust sensor and displaying the output on the OLED using the Elecfreaks IOT extension.</p>
                 </div>
             </div>
 
-            <h3>Final Code Logic (MakeCode Blocks)</h3>
+            <h3>Final Code Logic (MicroPython/MakeCode)</h3>
             <div class="code-block">
-                <p>// The Final MakeCode Block Logic Transcribed to Code</p>
+                <p>// The core logic running on the Micro:bit</p>
                 <pre>
-// --- On Start ---
-let GAS_ALARM_THRESHOLD = 600
-let DUST_ALARM_THRESHOLD = 150 
 OLED.init(128, 64)
-OLED.clear()
 
-// --- Forever Loop ---
-basic.forever(function () {
-    // 1. Read Sensors
-    let Gas_Reading = pins.analogReadPin(AnalogPin.P2) // MQ-2 on P2
-    let Dust_Reading = Environment.readDust(DigitalPin.P13, AnalogPin.P1) // Dust Sensor on P13/P1
-    
-    // 2. Check Alarm Condition: TRUE if Gas OR Dust is too high
-    let Alarm_On = (Gas_Reading > GAS_ALARM_THRESHOLD) || (Dust_Reading > DUST_ALARM_THRESHOLD)
-    
-    // 3. Display Data on OLED
+def on_forever():
     OLED.clear()
-    OLED.showString("Dust(ug/m3):", 0, 0)
-    OLED.showNumber(Dust_Reading, 90, 0)
-    OLED.showString("Gas Reading:", 0, 20)
-    OLED.showNumber(Gas_Reading, 90, 20)
-
-    if (Alarm_On) {
-        OLED.showString("--- ALARM ---", 0, 45)
-    } else {
-        OLED.showString("--- SAFE ---", 0, 45)
-    }
     
-    // 4. Buzzer & LED Alarm Action
-    if (Alarm_On) {
-        music.playTone(800, music.beat(BeatFraction.Quarter)) 
-        basic.showLeds(`# . . . # . # . # . . . # . . # . # . # . . . #`)
-    } else {
-        music.rest(music.beat(BeatFraction.Sixteenth))
-        basic.clearScreen()
-    }
-    basic.pause(2000)
-})
+    // Read and display Dust Sensor data (P13, P1)
+    OLED.write_string("Dust(ug/m3):")
+    OLED.write_num_new_line(Environment.read_dust(DigitalPin.P13, AnalogPin.P1))
+    
+    // Read and display Gas Sensor data (P2)
+    OLED.new_line()
+    OLED.write_string("Gas Level ppm:")
+    OLED.write_num_new_line(pins.analog_read_pin(AnalogReadWritePin.P2))
+    basic.pause(1000)
+    
+    // Combined Alarm Check
+    if pins.analog_read_pin(AnalogPin.P2) >= 400 or Environment.read_dust(DigitalPin.P13, AnalogPin.P1) > 200:
+        // Activate Alarm: Buzzer (Ring Tone) and Onboard LED (Brightness)
+        music.ring_tone(260) 
+        led.enable(True)
+        led.set_brightness(255)
+    else:
+        // Deactivate Alarm
+        music.stop_all_sounds()
+        led.enable(False)
+        
+basic.forever(on_forever)
                 </pre>
             </div>
         </section>
