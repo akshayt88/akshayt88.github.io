@@ -90,8 +90,21 @@
             flex-wrap: wrap;
         }
         .visual-item {
-            width: 45%; 
+            /* Adjusted width to center single items better */
+            width: 80%; 
             margin-bottom: 20px;
+        }
+        /* Overriding single image container for phase 2 and 3 */
+        .development-image {
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .development-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
         .visual-item img, .visual-item video {
             max-width: 100%;
@@ -99,7 +112,7 @@
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-        .visual-item p {
+        .visual-item p, .development-image p {
             font-style: italic;
             color: #555;
             font-size: 0.9em;
@@ -203,26 +216,43 @@
                 <p>// The Final MakeCode Block Logic Transcribed to Code</p>
                 <pre>
 // --- On Start ---
+let GAS_ALARM_THRESHOLD = 600
+let DUST_ALARM_THRESHOLD = 150 
 OLED.init(128, 64)
+OLED.clear()
 
-// --- Forever Loop --
-def on_forever():
+// --- Forever Loop ---
+basic.forever(function () {
+    // 1. Read Sensors
+    let Gas_Reading = pins.analogReadPin(AnalogPin.P2) // MQ-2 on P2
+    let Dust_Reading = Environment.readDust(DigitalPin.P13, AnalogPin.P1) // Dust Sensor on P13/P1
+    
+    // 2. Check Alarm Condition: TRUE if Gas OR Dust is too high
+    let Alarm_On = (Gas_Reading > GAS_ALARM_THRESHOLD) || (Dust_Reading > DUST_ALARM_THRESHOLD)
+    
+    // 3. Display Data on OLED
     OLED.clear()
-    OLED.write_string("Dust(ug/m3):")
-    OLED.write_num_new_line(Environment.read_dust(DigitalPin.P13, AnalogPin.P1))
-    OLED.new_line()
-    OLED.write_string("Gas Level ppm:")
-    OLED.write_num_new_line(pins.analog_read_pin(AnalogReadWritePin.P2))
-    basic.pause(1000)
-    if pins.analog_read_pin(AnalogPin.P2) >= 400 or Environment.read_dust(DigitalPin.P13, AnalogPin.P1) > 200:
-        music.ring_tone(260)
-        led.enable(True)
-        led.set_brightness(255)
-    else:
-        music.stop_all_sounds()
-        led.enable(False)
-basic.forever(on_forever)
+    OLED.showString("Dust(ug/m3):", 0, 0)
+    OLED.showNumber(Dust_Reading, 90, 0)
+    OLED.showString("Gas Reading:", 0, 20)
+    OLED.showNumber(Gas_Reading, 90, 20)
 
+    if (Alarm_On) {
+        OLED.showString("--- ALARM ---", 0, 45)
+    } else {
+        OLED.showString("--- SAFE ---", 0, 45)
+    }
+    
+    // 4. Buzzer & LED Alarm Action
+    if (Alarm_On) {
+        music.playTone(800, music.beat(BeatFraction.Quarter)) 
+        basic.showLeds(`# . . . # . # . # . . . # . . # . # . # . . . #`)
+    } else {
+        music.rest(music.beat(BeatFraction.Sixteenth))
+        basic.clearScreen()
+    }
+    basic.pause(2000)
+})
                 </pre>
             </div>
         </section>
@@ -237,11 +267,10 @@ basic.forever(on_forever)
 
             <h3>Phase 2: The Keystudio Smart Home Model (Over-Scoping)</h3>
             <p>I pivoted to an all-encompassing Keystudio Smart Home model that included an OLED display, MQ-2 sensor, a fan, LEDs, revolving doors, a water sensor, and Bluetooth.</p>
-            <img src="Screenshot 2025-12-10 at 11.44.52 PM.jpg" alt="Keystudio Smart Home Kit">
-            <div class="visual-container">
-                <div class="visual-item" style="width: 80%;">
-                    <p>Image 3: The Keystudio Smart Home Model—a pivot that proved too complex due to integration and power issues.</p>
-                </div>
+            
+            <div class="development-image">
+                <img src="IMG_1536.jpeg" alt="Final functional setup of the Elecfreaks circuit with Micro:bit, MQ-2, and OLED display.">
+                <p>Image 3: The **functional Elecfreaks circuit** that became the core of the project, placed here to illustrate the complexity of the previous Keystudio attempts.</p>
             </div>
 
             <p>This approach led to **huge complications** due to battery lifespan issues and connection struggles (like the OLED display failing to turn on). I realized the project had too many features.</p>
@@ -251,11 +280,9 @@ basic.forever(on_forever)
             <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned to program the Micro:bit effectively and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible. I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
             <p style="font-weight: bold;">**Outcome:** A functional, reliable safety device, proving that disciplined iteration leads to project completion.</p>
             
-            <div class="visual-container">
-                <div class="visual-item" style="width: 80%;">
-                    <img src="IMG_1536.jpeg" alt="Final functional setup of the Elecfreaks circuit with Micro:bit, MQ-2, and OLED display.">
-                    <p>Image 4: The final functional Elecfreaks circuit proving the success of Phase 3, showing the connected Micro:bit and sensors.</p>
-                </div>
+            <div class="development-image">
+                <img src="Screenshot 2025-12-10 at 11.44.52 PM.jpg" alt="Keystudio Smart Home Kit">
+                <p>Image 4: The over-scoped **Keystudio Smart Home Model** that led to the realization of needing to simplify the circuit and focus on core function.</p>
             </div>
 
         </section>
