@@ -93,7 +93,7 @@
             width: 45%; 
             margin-bottom: 20px;
         }
-        .visual-item img {
+        .visual-item img, .visual-item video {
             max-width: 100%;
             height: auto;
             border-radius: 5px;
@@ -160,7 +160,7 @@
         <section>
             <h2>My Project: Smart Home Air Quality Monitor</h2>
             <p style="font-size: 1.1em; text-align: center;">
-                This project is a hardware-software integration focusing on immediate safety alerts. It is a **Smart Home Device** built on a Micro:bit shield, utilizing a **Gas Sensor (MQ-2)** and a **Dust Sensor** to detect environmental hazards and alert the user via a **Passive Buzzer**.
+                This project is a hardware-software integration focusing on immediate safety alerts. It is a **Smart Home Device** built on a Micro:bit shield, utilizing a **Gas Sensor (MQ-2)** and a **Dust Sensor** to detect environmental hazards and alert the user via a **Passive Buzzer** and **Onboard LED Blink**.
             </p>
         </section>
 
@@ -169,53 +169,77 @@
             <h2><span role="img" aria-label="lightbulb">💡</span> Project Details: Final MVP</h2>
 
             <h3>Core Functionality</h3>
-            <p>The code is written in **Python (MicroPython)**. The system monitors two critical analog inputs and triggers a digital output (the buzzer) based on predefined safety thresholds.</p>
+            <p>The code is written in **MakeCode Blocks** (MicroPython equivalent) to simplify integration with the **Elecfreaks IoT:bit** shield. The system monitors two critical analog inputs and triggers a dual digital output (buzzer and LED) based on predefined safety thresholds.</p>
             <ul>
                 <li>
-                    **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading reaches or exceeds **400 parts per million (PPM)**.
+                    **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading exceeds a set threshold (e.g., **600** on the Micro:bit's 0-1023 analog scale).
                 </li>
                 <li>
-                    **Dust Particle Sensor:** Monitors the concentration and size of airborne dust. The buzzer alerts the user when particles indicate **unsafe air quality** (e.g., in a heavily used workshop).
+                    **Dust Particle Sensor:** Monitors the concentration of airborne dust. The alarm is triggered when the reading exceeds a set safety threshold (e.g., **150 ug/m³**).
                 </li>
                 <li>
-                    **Passive Buzzer:** Provides an immediate audible warning for either hazard detection.
+                    **Passive Buzzer & Onboard LED:** Provides an immediate, simultaneous audible and visual warning for *either* hazard detection.
                 </li>
             </ul>
 
-            <h3>Visuals and Wiring</h3>
+            <h3>Visuals and Demo</h3>
             <div class="visual-container">
-                <div class="visual-item">
-                    <img src="Screenshot 2025-12-10 at 11.25.17 PM.jpg" alt="Final Gas Sensor and Micro:bit Setup">
-                    <p>Image 1: The final, functional setup showing the MQ-2 Gas Sensor connected to the Micro:bit shield and OLED display, confirming real-time data monitoring.</p>
+                <div class="visual-item" style="width: 90%;">
+                    <video controls src="IMG_1533 (5).mp4" alt="Video demonstration of gas detection system"></video>
+                    <p>Video 1: Demonstration of the MQ-2 Gas Sensor triggering the Passive Buzzer and Onboard LED blink when exposed to Butane from a lighter.</p>
                 </div>
                 <div class="visual-item">
-                    <img src="Screenshot 2025-12-10 at 11.24.59 PM.png" alt="Dust Sensor Wiring Diagram">
-                    <p>Image 2: Wiring diagram for a sensor connected to the Micro:bit Sensor:bit shield, illustrating the successful use of analog pins for multiple components.</p>
+                    <img src="Screenshot 2025-12-08 at 7.45.14 PM.png" alt="MakeCode analog read pin block">
+                    <p>Image 1: The 'analog read pin' block is essential for interpreting the varying voltage output from the MQ-2 gas sensor.</p>
+                </div>
+                <div class="visual-item">
+                    <img src="Screenshot 2025-12-09 at 9.00.20 PM.png" alt="MakeCode dust sensor block logic">
+                    <p>Image 2: The logic for reading the dust sensor and displaying the output on the OLED using the Elecfreaks IOT extension.</p>
                 </div>
             </div>
 
-            <h3>Code Insight</h3>
+            <h3>Final Code Logic (MakeCode Blocks)</h3>
             <div class="code-block">
-                <p>// Conceptual Python Logic Snippet (Analog Read & Comparison)</p>
+                <p>// The Final MakeCode Block Logic Transcribed to Code</p>
                 <pre>
-from microbit import *
-import music
+// --- On Start ---
+let GAS_ALARM_THRESHOLD = 600
+let DUST_ALARM_THRESHOLD = 150 
+OLED.init(128, 64)
+OLED.clear()
 
-GAS_THRESHOLD = 400 
-
-def read_sensors_and_alert():
-    gas_level = pin0.read_analog() # MQ-2 on P0
-    dust_level = pin1.read_analog() # Dust Sensor on P1 (Conceptual)
+// --- Forever Loop ---
+basic.forever(function () {
+    // 1. Read Sensors
+    let Gas_Reading = pins.analogReadPin(AnalogPin.P2) // MQ-2 on P2
+    let Dust_Reading = Environment.readDust(DigitalPin.P13, AnalogPin.P1) // Dust Sensor on P13/P1
     
-    # Check for hazards
-    if gas_level >= GAS_THRESHOLD or dust_level > DUST_THRESHOLD:
-        music.play(music.BA_DING, wait=False)
-    else:
-        music.stop()
+    // 2. Check Alarm Condition: TRUE if Gas OR Dust is too high
+    let Alarm_On = (Gas_Reading > GAS_ALARM_THRESHOLD) || (Dust_Reading > DUST_ALARM_THRESHOLD)
+    
+    // 3. Display Data on OLED
+    OLED.clear()
+    OLED.showString("Dust(ug/m3):", 0, 0)
+    OLED.showNumber(Dust_Reading, 90, 0)
+    OLED.showString("Gas Reading:", 0, 20)
+    OLED.showNumber(Gas_Reading, 90, 20)
 
-while True:
-    read_sensors_and_alert()
-    sleep(500)
+    if (Alarm_On) {
+        OLED.showString("--- ALARM ---", 0, 45)
+    } else {
+        OLED.showString("--- SAFE ---", 0, 45)
+    }
+    
+    // 4. Buzzer & LED Alarm Action
+    if (Alarm_On) {
+        music.playTone(800, music.beat(BeatFraction.Quarter)) 
+        basic.showLeds(`# . . . # . # . # . . . # . . # . # . # . . . #`)
+    } else {
+        music.rest(music.beat(BeatFraction.Sixteenth))
+        basic.clearScreen()
+    }
+    basic.pause(2000)
+})
                 </pre>
             </div>
         </section>
@@ -242,8 +266,7 @@ while True:
             <p style="font-style: italic;">**Key Learning:** Feature creep and power management are critical challenges in hardware projects. This experience led me to focus strictly on the *core function*: gas and dust detection.</p>
 
             <h3>Phase 3: The Elecfreaks Circuit (Success)</h3>
-            <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned **Python** to program the Micro:bit and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible.</p>
-            <p>I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
+            <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned to program the Micro:bit effectively and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible. I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
             <p style="font-weight: bold;">**Outcome:** A functional, reliable safety device, proving that disciplined iteration leads to project completion.</p>
 
         </section>
