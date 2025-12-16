@@ -171,9 +171,9 @@
     <div class="container">
         
         <section>
-            <h2>My Project: Smart Home Air Quality Monitor</h2>
+            <h2>My Project: Smart Home Gas Leak Monitor</h2>
             <p style="font-size: 1.1em; text-align: center;">
-                This project is a hardware-software integration focusing on immediate safety alerts. It is a **Smart Home Device** built on a Micro:bit shield, utilizing a **Gas Sensor (MQ-2)** and a **Dust Sensor** to detect environmental hazards and alert the user via a **Passive Buzzer** and **Onboard LED Blink**.
+                This project is a hardware-software integration focusing on immediate safety alerts. It is a **Smart Home Device** built on a Micro:bit shield, utilizing a **Gas Sensor (MQ-2)** to detect environmental hazards and alert the user via a **Passive Buzzer** and **Onboard LED Blink**.
             </p>
         </section>
 
@@ -182,16 +182,13 @@
             <h2><span role="img" aria-label="lightbulb">💡</span> Project Details: Final MVP</h2>
 
             <h3>Core Functionality</h3>
-            <p>The code is written in **MakeCode Blocks** (MicroPython equivalent) to simplify integration with the **Elecfreaks IoT:bit** shield. The system monitors two critical analog inputs and triggers a dual digital output (buzzer and LED) based on predefined safety thresholds.</p>
+            <p>The code is written in **MakeCode Blocks** (MicroPython equivalent) to simplify integration with the **Elecfreaks IoT:bit** shield. The system monitors a critical analog input and triggers a dual digital output (buzzer and LED) based on a predefined safety threshold.</p>
             <ul>
                 <li>
                     **MQ-2 Gas Sensor:** Detects Butane, LPG, and Methane. The alarm is triggered when the gas reading exceeds a set threshold (e.g., **600** on the Micro:bit's 0-1023 analog scale).
                 </li>
                 <li>
-                    **Dust Particle Sensor:** Monitors the concentration of airborne dust. The alarm is triggered when the reading exceeds a set safety threshold (e.g., **150 ug/m³**).
-                </li>
-                <li>
-                    **Passive Buzzer & Onboard LED:** Provides an immediate, simultaneous audible and visual warning for *either* hazard detection.
+                    **Passive Buzzer & Onboard LED:** Provides an immediate, simultaneous audible and visual warning upon hazard detection.
                 </li>
             </ul>
 
@@ -205,27 +202,25 @@
 
             <h3>Final Code Logic (MakeCode Blocks)</h3>
             <div class="code-block">
-                <p>// The Final MakeCode Block Logic Transcribed to Code</p>
+                <p>// The Final MakeCode Block Logic Transcribed to Code (Gas Detection Only)</p>
                 <pre>
 // --- On Start ---
 OLED.init(128, 64)
 
+
 // --- Forever Loop ---
 def on_forever():
     OLED.clear()
-    OLED.write_string("Dust(ug/m3):")
-    OLED.write_num_new_line(Environment.read_dust(DigitalPin.P13, AnalogPin.P1))
-    OLED.new_line()
     OLED.write_string("Gas Level ppm:")
     OLED.write_num_new_line(pins.analog_read_pin(AnalogReadWritePin.P2))
-    basic.pause(1000)
-    if pins.analog_read_pin(AnalogPin.P2) >= 400 or Environment.read_dust(DigitalPin.P13, AnalogPin.P1) > 200:
+    if pins.analog_read_pin(AnalogPin.P2) >= 400:
         music.ring_tone(260)
         led.enable(True)
         led.set_brightness(255)
     else:
         music.stop_all_sounds()
         led.enable(False)
+    basic.pause(1000)
 basic.forever(on_forever)
 
                 </pre>
@@ -249,10 +244,10 @@ basic.forever(on_forever)
             </div>
 
             <p>This approach led to **huge complications** due to battery lifespan issues and connection struggles (like the OLED display failing to turn on). I realized the project had too many features.</p>
-            <p style="font-style: italic;">**Key Learning:** Feature creep and power management are critical challenges in hardware projects. This experience led me to focus strictly on the *core function*: gas and dust detection.</p>
+            <p style="font-style: italic;">**Key Learning:** Feature creep and power management are critical challenges in hardware projects. This experience led me to focus strictly on the *core function*: gas detection.</p>
 
             <h3>Phase 3: The Elecfreaks Circuit (Success)</h3>
-            <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned to program the Micro:bit effectively and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible. I successfully integrated the MQ-2, the dust particle detector, and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
+            <p>I settled on the Elecfreaks circuit with a Micro:bit shield. I successfully applied lessons learned, focusing on a minimal viable product (MVP). I learned to program the Micro:bit effectively and confirmed that as long as I correctly reference the **analog pin** on the shield, connection is possible. I successfully integrated the MQ-2 and the buzzer. My final major challenge was **stabilizing the MQ-2 sensor readings**, which required additional research into sensor pre-heating and data averaging techniques.</p>
             <p style="font-weight: bold;">**Outcome:** A functional, reliable safety device, proving that disciplined iteration leads to project completion.</p>
             
             <div class="development-image">
